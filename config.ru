@@ -1,6 +1,6 @@
 LIB_PATH = File.expand_path(File.join(File.dirname(__FILE__), 'lib'))
 $:.unshift LIB_PATH
 require 'rack_rubygems'
-use GemsAndRdocs, :urls => ['/cache', '/doc'], :root => Gem.dir
+use GemsAndRdocs, :urls => ['/cache', '/doc'], :root => File.directory?("gems") ? "gems" : Gem.dir
 use Rack::Compress
 run RackRubygems.new

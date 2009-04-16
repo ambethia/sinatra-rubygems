@@ -104,7 +104,7 @@ class RackRubygems < Sinatra::Base
   end
 
   def source_index
-    @gem_dir = Gem.dir
+    @gem_dir = File.directory?("gems") ? "gems" : Gem.dir
     @spec_dir = File.join @gem_dir, 'specifications'
     @source_index = Gem::SourceIndex.from_gems_in @spec_dir
     response['Date'] = File.stat(@spec_dir).mtime.to_s
