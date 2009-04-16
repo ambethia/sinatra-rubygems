@@ -20,7 +20,7 @@ describe "The Rack Rubygems Server" do
 
   end
 
-  describe "provides gem indicies" do
+  describe "provides gem indices" do
     it 'as marshal data' do
       should_match_webrick_behavior "/Marshal.#{Gem.marshal_version}", :Marshal
       should_match_webrick_behavior "/Marshal.#{Gem.marshal_version}", :Marshal, :head
