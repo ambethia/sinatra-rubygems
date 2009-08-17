@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + "/spec_helper.rb")
 
 describe "The Rack Rubygems Server" do
-
+    
   it "serves a list of gems up at the root" do
     should_match_webrick_behavior "/", :root
   end
@@ -9,13 +9,13 @@ describe "The Rack Rubygems Server" do
   describe "serves some static files" do
 
     it 'including rdocs' do
-      get '/doc_root/rubygems-1.3.1/rdoc/index.html'
-      @response.should be_ok
+      get '/doc_root/rubygems-1.3.4/rdoc/index.html' #rubygems-1.3.1
+      last_response.should be_ok
     end
 
     it 'including gems' do
-      get '/gems/rack-0.9.1.gem'
-      @response.should be_ok
+      get '/gems/rack-1.0.0.gem' #rack-0.9.2.gem
+      last_response.should be_ok
     end
 
   end
@@ -89,7 +89,7 @@ describe "The Rack Rubygems Server" do
 
     it "returns a 404 when accessing a missing gem" do
       get "/quick/z-9.gemspec.rz"
-      @response.should_not be_ok
+      last_response.should_not be_ok
     end
 
     it "marshalled via name and version" do

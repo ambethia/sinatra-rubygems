@@ -1,10 +1,5 @@
-require 'rubygems'
-require 'sinatra/base' 
-require 'yaml'
-require 'zlib'
-require 'erb'
-require 'rubygems'
-require 'rubygems/doc_manager'
+%w{rubygems sinatra/base yaml zlib erb rubygems/doc_manager}.each {|x| require x}
+
 require File.expand_path(File.dirname(__FILE__) + "/rack_compress")
 require File.expand_path(File.dirname(__FILE__) + "/gems_and_rdocs")
 
@@ -218,7 +213,7 @@ class RackRubygems < Sinatra::Base
   def specs
     specs = source_index.sort.map do |_, spec|
       platform = spec.original_platform
-      platform = Gem::Platform::RUBY if platform.nil?
+      platform ||= Gem::Platform::RUBY
       [spec.name, spec.version, platform]
     end
   end

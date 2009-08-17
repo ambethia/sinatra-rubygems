@@ -1,5 +1,5 @@
-require 'zlib'
-require 'stringio'
+%w{zlib stringio}.each {|x| require x}
+
 module Rack
   class Compress
 
