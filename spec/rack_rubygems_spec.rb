@@ -9,7 +9,7 @@ describe "The Rack Rubygems Server" do
   describe "serves some static files" do
 
     it 'including rdocs' do
-      get '/doc_root/rubygems-1.3.4/rdoc/index.html' #rubygems-1.3.1
+      get '/doc_root/rubygems-1.3.5/rdoc/index.html' #rubygems-1.3.1
       last_response.should be_ok
     end
 
