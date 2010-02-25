@@ -1,10 +1,76 @@
 body {
-    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-family: "Lucida Grande",Arial,Helvetica,sans-serif;
     font-size:   90%;
     margin: 0;
     margin-left: 40px;
     padding: 0;
     background: white;
+}
+
+div#description {
+	background: white !important;
+	border: 0px !important;
+}
+
+div#fileHeader {
+	background: #eee !important;
+	border-bottom: 1px solid silver !important;
+	margin-bottom: 10px !important;
+}
+
+h1 {
+	font-family: Georgia !important;	
+	font-weight: normal !important;
+}
+
+dl dt {
+	margin-bottom: 7px !important;
+}
+
+dl dd {
+	margin-bottom: 15px !important;
+	margin-left: 0px !important;
+	color: #787878;
+	font-size: 90%;
+}
+
+dl dt b {
+	text-transform: capitalize;
+	color: black;
+}
+
+dl dt {
+	color: #555;
+}
+
+dl dt a {
+	text-transform: uppercase;
+	font-size: 80%;
+}
+
+a {
+	color: #336699 !important;
+	background: none !important;
+}
+
+a:hover {
+	background:none repeat scroll 0 0 #336699 !important;
+	color: #EEEEFF !important;
+}
+
+.context-item-name {
+	font-family: "Anonymous Pro", Inconsolata, Courier !important;
+	font-size: 12px !important;
+}
+
+div#description h1 {
+	color: #0E3062 !important;
+	text-transform: uppercase;
+}
+
+div#fileHeader h1 {
+	color: black !important;
+	font-size: 32px;
 }
 
 h1,h2,h3,h4 { margin: 0; color: #efefef; background: transparent; }
