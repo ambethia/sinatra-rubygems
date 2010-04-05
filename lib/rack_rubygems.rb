@@ -1,13 +1,3 @@
-require 'rubygems'
-require 'sinatra/base' 
-require 'yaml'
-require 'zlib'
-require 'erb'
-require 'rubygems'
-require 'rubygems/doc_manager'
-require File.expand_path(File.dirname(__FILE__) + "/rack_compress")
-require File.expand_path(File.dirname(__FILE__) + "/gems_and_rdocs")
-
 class RackRubygems < Sinatra::Base
 
   get '/' do
@@ -18,12 +8,15 @@ class RackRubygems < Sinatra::Base
   end
 
   get '/gemlist.js' do
+    content_type 'text/javascript'
     specs, total_file_count = get_specs_and_file_count
     
     body = "document.writeln('<select style=\"float:right;margin: 10px 10px 0 0 \" onchange=\"window.parent.location=this.value\">');"
     body << "document.writeln('<option value=\"/\">Gems:</option>');"
     specs.each do |spec|
-      body << "document.writeln(\"<option value='#{spec['doc_path']}'>#{spec['name']} - #{spec['version']}</option>\");"
+      if spec["rdoc_installed"]
+        body << "document.writeln(\"<option value='#{spec['doc_path']}'>#{spec['name']} - #{spec['version']}</option>\");"
+      end
     end
     body << "document.writeln('</select>');"
     body
@@ -101,7 +94,7 @@ class RackRubygems < Sinatra::Base
   end
 
   def source_index
-    @gem_dir = Gem.dir
+    @gem_dir = File.directory?("gems") ? "gems" : Gem.dir
     @spec_dir = File.join @gem_dir, 'specifications'
     @source_index = Gem::SourceIndex.from_gems_in @spec_dir
     response['Date'] = File.stat(@spec_dir).mtime.to_s
@@ -215,7 +208,7 @@ class RackRubygems < Sinatra::Base
   def specs
     specs = source_index.sort.map do |_, spec|
       platform = spec.original_platform
-      platform = Gem::Platform::RUBY if platform.nil?
+      platform ||= Gem::Platform::RUBY
       [spec.name, spec.version, platform]
     end
   end
